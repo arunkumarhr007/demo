@@ -1,0 +1,208 @@
+FORMAT: 1A
+HOST: http://xcclx8149
+
+# DDN Item Price API
+API that gives the item price details for given partnumber(s).
+
+# Group Price APIs
+
+## ItemPrice [/item/price/v1/{partNumber}]
++ Parameters
+    + partNumber (required, string, `13343763`) ... partnumber for which item price is required.
+
+### Retrieve item price [GET]
+Returns item price for a given partnumber.
+
++ Response 200 (application/json;charset=UTF-8)
+
+    + Body
+
+            {
+                "partNumber": "13343763",
+                "mapPrice": 0,
+                "ppu": "",
+                "soiFlag": "Y",
+                "mapPriceFlag": "",
+                "lastUpdate": 1401691360882,
+                "listPrice": {
+                    "minPrice": 0,
+                    "maxPrice": 0,
+                    "price": 54.99,
+                    "null": false
+                },
+                "offerPrice": {
+                    "minPrice": 0,
+                    "maxPrice": 0,
+                    "price": 46.74,
+                    "startDate": 1341150707000,
+                    "endDate": 253402279200000,
+                    "saveDollar": 8.25,
+                    "savePercent": 15,
+                    "eyebrow": "StandardPrice",
+                    "null": false
+                },
+                "null": false
+            }
+
+    + Schema
+
+            {
+                "type":"object",
+                "required":true,
+                "properties":{
+                    "partNumber": {
+                        "type":"string",
+                        "required": true
+                    },
+                    "mapPrice": {
+                        "type":"number",
+                        "required": true                   
+                    },
+                    "ppu": {
+                        "type":"string",
+                        "required": false                
+                    },
+                    "soiFlag": {
+                        "type":"string",
+                        "required": false                    
+                    },
+                    "mapPriceFlag": {
+                        "type":"string",
+                        "required": false                    
+                    },
+                    "lastUpdate": {
+                        "type":"number",
+                        "required": true                   
+                    },
+                    "listPrice": {
+                        "type":"object",
+                        "required": true, 
+                        "properties": {
+                            "minPrice": {
+                                "type":"number",
+                                "required": false                    
+                            },
+                            "maxPrice": {
+                                "type":"number",
+                                "required": false                    
+                            },
+                            "price": {
+                                "type":"number",
+                                "required": true                   
+                            },
+                            "null": {
+                                "type":"boolean",
+                                "required": false                    
+                            }
+                        }
+                    },
+                    "null": {
+                        "type":"boolean",
+                        "required": false                    
+                    }
+                }
+            }
+
++ Response 500 (application/json;charset=UTF-8)
+    + Body
+
+            {
+              "Message" : "Internal Server Error"
+            }
+
++ Response 503 (application/json;charset=UTF-8)
+    + Body
+
+            {
+                "code":-1001,
+                "message":"NO_HOST_AVAILABLE_EXCEPTION"
+            }
+
+## ItemPrices [/item/price/v1]
+Returns price information for multiple partnumbers.
+
+### Retrieve item price collection [POST]
+Returns item price for a multiple partnumbers.
+
++ Request
+    + Headers
+
+            Content-Type: application/json
+
+    + Body
+
+            ["11601354","13343763"]
+
++ Response 200 (application/json;charset=UTF-8)
+    + Body
+
+            {
+                "11601354": {
+                    "partNumber": "11601354",
+                    "mapPrice": 0,
+                    "ppu": "",
+                    "soiFlag": "Y",
+                    "mapPriceFlag": "",
+                    "lastUpdate": 1401691348859,
+                    "listPrice": {
+                        "minPrice": 0,
+                        "maxPrice": 0,
+                        "price": 34.98,
+                        "null": false
+                    },
+                    "offerPrice": {
+                        "minPrice": 0,
+                        "maxPrice": 0,
+                        "price": 29.49,
+                        "startDate": 1334585743000,
+                        "endDate": 253402279200000,
+                        "saveDollar": 5.49,
+                        "savePercent": 15.69,
+                        "eyebrow": "StandardPrice",
+                        "null": false
+                    },
+                    "null": false
+                },
+                "13343763": {
+                    "partNumber": "13343763",
+                    "mapPrice": 0,
+                    "ppu": "",
+                    "soiFlag": "Y",
+                    "mapPriceFlag": "",
+                    "lastUpdate": 1401691360882,
+                    "listPrice": {
+                        "minPrice": 0,
+                        "maxPrice": 0,
+                        "price": 54.99,
+                        "null": false
+                    },
+                    "offerPrice": {
+                        "minPrice": 0,
+                        "maxPrice": 0,
+                        "price": 46.74,
+                        "startDate": 1341150707000,
+                        "endDate": 253402279200000,
+                        "saveDollar": 8.25,
+                        "savePercent": 15,
+                        "eyebrow": "StandardPrice",
+                        "null": false
+                    },
+                    "null": false
+                }
+            }
+
+
++ Response 500 (application/json;charset=UTF-8)
+    + Body
+
+            {
+              "Message" : "Internal Server Error"
+            }
+
++ Response 503 (application/json;charset=UTF-8)
+    + Body
+
+            {
+                "code":-1001,
+                "message":"NO_HOST_AVAILABLE_EXCEPTION"
+            }
